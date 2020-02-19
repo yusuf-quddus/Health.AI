@@ -1,0 +1,41 @@
+.body-img {
+	padding: 70px;
+	margin: 4px auto;
+	background: url(https://d23i5jq6adgv5h.cloudfront.net/production/uploads/2019/01/29143624/Healthyfamily.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100%;
+	width: 100%;
+}
+
+.form {
+	padding: 5%;
+	margin: 5% auto;
+	margin-left: 0%;
+	max-width: 500px;
+	width: 40%;
+	background-color: white;
+	border-radius: 15%;
+}
+
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    left:0px;
+    z-index:1000;
+}
+
+.white {
+	outline:none !important;
+}
+
+.padding-up {
+	margin-top: 4px;
+}
+
+.text-copper {
+	font-family: copperplate;
+}
