@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/static/css/landing.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<head>
+	<title>Health AI: Login</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="#">
+    <img src="https://lh3.googleusercontent.com/proxy/XAQ7p9jOv7Nr0WPLxXzDAJ31YG6BLWzunxK29lJEPZjWjetRJNHbVxHVrPeDgQ5fvVPTuS25f1ZWtsacaVTjhLfDQimMYg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Health.ai
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">Sign Up</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="overlay body-img">
+		<div class="form">
+			<h2 class="text-copper">Welcome Back</h2>
+			<p style='color:red'>
+
+			{% with messages = get_flashed_messages(category_filter=["error"]) %}
+				 {% if messages %}
+						{% for message in messages %}
+							 {{ message }}
+						{% endfor %}
+				 {% endif %}
+			{% endwith %}
+
+		</p>
+
+		<p style='color:green'>
+
+		{% with messages = get_flashed_messages(category_filter=["success"]) %}
+			 {% if messages %}
+					{% for message in messages %}
+						 {{ message }}
+					{% endfor %}
+			 {% endif %}
+		{% endwith %}
+
+	</p>
+		    <form class="white" enctype="multipart/form-data" method="post">
+				<nav class="navbar navbar-light bg-light">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Email address</label>
+				    <input type="email" name='email' id='email' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name='password' id='password'>
+				  </div>
+				  <button type="submit" name='submit_button' class="btn btn-primary padding-up" value='login'>Log In</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/health.css">
+<head>
+	<title>Your Dashboard</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head>
+<body>
+
+
+<div class="vertical-nav bg-white" id="sidebar">
+  <div class="py-4 px-3 mb-4 bg-light">
+    <div class="media d-flex align-items-center">
+      <div class="media-body">
+        <h4 class="m-0">{{name}}</h4><br>
+				<h6 class="m-0" style='text-align:center'> BMI: {{bmi}}</h6>
+      </div>
+    </div>
+  </div>
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Your Health Report</p>
+  <ul class="nav flex-column bg-white mb-0">
+    <li class="nav-item">
+      <a href="/health" class="nav-link text-dark font-italic bg-light">
+        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+        	Home
+      </a>
+    </li>
+</div>
+
+<div class="notif-cell" style='text-align: right; margin: 0 auto ;width: 1000px; margin-top: 40px'>
+
+<div style='text-align:center; margin: 0 auto'>
+
+	<button type="button" style='margin-bottom: 20px'>
+	<img src='/static/images/heart_rate.png' style='height: 350px; width: 475px; margin-bottom: 20px'>
+  </button>
+
+	<button type='button' style='margin-bottom: 20px'>
+	<img src='/static/images/step_count.png' style='height: 350px; width: 475px; margin-bottom: 20px; margin-right: 10px;'>
+	</button>
+
+  <button type="button" style='margin-bottom: 20px; margin-left: 2px'>
+	<img src='/static/images/calories.png' style='height: 350px; width: 475px; margin-left: 20px; margin-bottom: 20px'>
+  </button>
+
+
+</div>
+<button type="button" class="collapsible">
+				<p class="text-height-small">Current Status:</p>
+				<h4 class="text-height-md">
+
+					{% if current_status == 'normal' %}
+					<span class="icon-ok glyphicon glyphicon-ok"> Ok: </span>
+					 Your Health Status Is Currently Normal
+
+					 {% elif current_status == 'caution' %}
+					 <span class="icon-warning glyphicon glyphicon-exclamation-sign"> Caution: </span>
+					 There are some irregularities in your health. Please review.
+
+					 {% elif current_status == 'warning' %}
+					 <span class="icon-alert glyphicon glyphicon-exclamation-sign"> Warning: </span>
+ 					 Your Health Status is not stable. Please visit a doctor.
+
+					 {% endif %}
+
+				</h4>
+			</button>
+
+			<div class="content" style='text-align:center; margin: 0 auto; height: 300px'>
+				<h4>Heart Rate: </h4>
+				<p> {{ heart_rate_status }} </p>
+				<h4>Calories: </h4>
+				<p> {{ calories_status }} </p>
+				<h4> Overall Recommendation:</h4>
+				<p> {{ overall_recommendation }} </p>
+				<h4>Emergency Contacts: </h4>
+				<table style='text-align:center; margin: 0 auto'>
+					<tr>
+						<td>
+							Emergency: 911
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Doctor: (816) 276-6405
+						</td>
+					</tr>
+						<td>
+							poison control: (800) 222-1222
+						</td>
+					</tr>
+				 </table>
+			</div>
+
+</div>
+</div>
+<div class="notifications">
+	<div class="column-notif">
+		<h3 style='text-align:center'> Heart Alerts </h3>
+
+		{% if heart_alerts != [] %}
+		{% for alert in heart_alerts %}
+
+		{% if alert['type'] == 'warning' %}
+
+		<div class="notif-cell">
+		<button type="button" class="collapsible">
+					<p class="text-height-small">{{ alert['time'] }}</p>
+					<p class="text-height-small">{{ alert['date'] }}</p>
+					<h4 class="text-height-md">
+						<span class="icon-alert glyphicon glyphicon-exclamation-sign"> Warning: </span>
+						{% if alert['level'] == 'low' %}
+						Low Heart Rate for extended period of time.
+						{% elif alert['level'] == 'high' %}
+						Elevated Heart Rate for extended period of time.
+						{% endif %}
+					</h4>
+				</button>
+
+				{% if alert['level'] == 'low' %}
+
+			<div class="content">
+				<h4>The Issue: </h4>
+				<p> Your slow heartrate may be cause for concern</p>
+				<h4>What to do</h4>
+				<p>Your slow heartrate could be benign but it could also be a symptom of Bradycardia. Contact your phasician to find out more </p>
+				<h4>Emergency Contacts: </h4>
+				<table>
+					<tr>
+						<td>
+							Emergency: 911
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Doctor: (816) 276-6405
+						</td>
+					</tr>
+						<td>
+							poison control: (800) 222-1222
+						</td>
+					</tr>
+				 </table>
+			</div>
+
+			{% elif alert['level'] == 'high' %}
+
+			<div class="content">
+				<h4>The Issue: </h4>
+				<p>Your heartrate has exeeded normal levels to an extended period of time.
+				This can be harmful to your health</p>
+				<h4>What to do</h4>
+				<p>Your elevated heartrate may be caused by increased stress or even a heart attack.
+				If this issue continues without any reaction from you <strong> we may call emergency services on your behalf</strong></p>
+				<h4>Emergency Contacts: </h4>
+				<table>
+					<tr>
+						<td>
+							Emergency: 911
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Doctor: (816) 276-6405
+						</td>
+					</tr>
+						<td>
+							poison control: (800) 222-1222
+						</td>
+					</tr>
+				 </table>
+			</div>
+
+			{% endif %}
+
+		</div>
+
+		{% elif alert['type'] == 'caution' %}
+
+		<div class="notif-cell">
+		<button type="button" class="collapsible">
+					<p class="text-height-small">{{ alert['time'] }}</p>
+					<p class="text-height-small"> {{ alert['date'] }} </p>
+					<h4 class="text-height-md">
+						<span class="icon-warning glyphicon glyphicon-exclamation-sign"> Caution: </span>
+						{% if alert['level'] == 'low' %}
+						 Your heart rate is slower than normal
+						 {% elif alert['level'] == 'high' %}
+						 Your heart rate is higher than normal
+						 {% endif %}
+
+					</h4>
+				</button>
+
+				{% if alert['level'] == 'low' %}
+
+			<div class="content">
+				<h4>The Issue: </h4>
+			  <p> Your Slow heartrate may be cause for concern</p>
+			  <h4>What to do</h4>
+			  <p>Your slow heartrate could be benign but it could also be a symptom of Bradycardia. Contact your phasician to find out more </p>
+			  <h4>Emergency Contacts: </h4>
+			  <table>
+			  	<tr>
+			  		<td>
+			  			Emergency: 911
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td>
+			  			Doctor: (816) 276-6405
+			  		</td>
+			  	</tr>
+			  		<td>
+			  			poison control: (800) 222-1222
+			  		</td>
+			  	</tr>
+			   </table>
+			</div>
+			{% elif alert['level'] == 'high' %}
+
+			<div class="content">
+				<h4>The Issue: </h4>
+				<p>Your heartrate has exeeded normal levels to an extended period of time.
+				This can be harmful to your health</p>
+				<h4>What to do</h4>
+				<p>Your elevated heartrate may be caused by increased stress or even a heart attack.
+				If this issue continues without any reaction from you <strong> we may call emergency services on your behalf</strong></p>
+				<h4>Emergency Contacts: </h4>
+				<table>
+					<tr>
+						<td>
+							Emergency: 911
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Doctor: (816) 276-6405
+						</td>
+					</tr>
+						<td>
+							poison control: (800) 222-1222
+						</td>
+					</tr>
+				 </table>
+			</div>
+
+			{% endif %}
+
+		</div>
+
+		{% endif %}
+		{% endfor %}
+		{% endif %}
+	</div>
+
+
+<div class="column-notif-right">
+	<h3 style='text-align:center'> Calorie Alerts </h3>
+	{% if calorie_alerts != [] %}
+	{% for alert in calorie_alerts %}
+
+	{% if alert['type'] == 'warning' %}
+
+	<div class="notif-cell">
+	<button type="button" class="collapsible">
+				<p class="text-height-small">{{ alert['time'] }}</p>
+				<p class="text-height-small">{{ alert['date'] }}</p>
+				<h4 class="text-height-md">
+					<span class="icon-alert glyphicon glyphicon-exclamation-sign"> Warning: </span>
+					{% if alert['level'] == 'low' %}
+					Low Calorie Intake for extended period of time.
+					{% elif alert['level'] == 'high' %}
+			  	High Calorie Intake for extended period of time.
+					{% endif %}
+				</h4>
+			</button>
+
+			{% if alert['level'] == 'low' %}
+
+		<div class="content">
+			<h4>The Issue: </h4>
+			<p> Your Low Calorie Intake may be cause for concern</p>
+			<h4>What to do</h4>
+			<p>Your low calorie intake could be benign but it could also be a symptom of weakness. Contact your phasician to find out more </p>
+			<h4>Emergency Contacts: </h4>
+			<table>
+				<tr>
+					<td>
+						Emergency: 911
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Doctor: (816) 276-6405
+					</td>
+				</tr>
+					<td>
+						poison control: (800) 222-1222
+					</td>
+				</tr>
+			 </table>
+		</div>
+		{% elif alert['level'] == 'high' %}
+
+		<div class="content">
+			<h4>The Issue: </h4>
+			<p>Your low calorie intake has exeeded normal levels to an extended period of time.
+			This can be harmful to your health</p>
+			<h4>What to do</h4>
+			<p>Your low calorie intake may be caused by increased stress.
+			If this issue continues without any reaction from you <strong> we may call emergency services on your behalf</strong></p>
+			<h4>Emergency Contacts: </h4>
+			<table>
+				<tr>
+					<td>
+						Emergency: 911
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Doctor: (816) 276-6405
+					</td>
+				</tr>
+					<td>
+						poison control: (800) 222-1222
+					</td>
+				</tr>
+			 </table>
+		</div>
+
+		{% endif %}
+
+	</div>
+
+	{% elif alert['type'] == 'caution' %}
+
+	<div class="notif-cell">
+	<button type="button" class="collapsible">
+				<p class="text-height-small">{{ alert['time'] }}</p>
+				<p class="text-height-small"> {{ alert['date'] }} </p>
+				<h4 class="text-height-md">
+					<span class="icon-warning glyphicon glyphicon-exclamation-sign"> Caution: </span>
+					{% if alert['level'] == 'low' %}
+					 Your calorie intake is lower than normal.
+					 {% elif alert['level'] == 'high' %}
+					 Your calorie intake is higher than normal.
+					 {% endif %}
+
+				</h4>
+			</button>
+
+			{% if alert['level'] == 'low' %}
+
+		<div class="content">
+			<h4>The Issue: </h4>
+			<p> Your calorie intake may be cause for concern</p>
+			<h4>What to do</h4>
+			<p>Your calorie intake could be benign but it could also be a symptom of weakness. Contact your phasician to find out more </p>
+			<h4>Emergency Contacts: </h4>
+			<table>
+				<tr>
+					<td>
+						Emergency: 911
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Doctor: (816) 276-6405
+					</td>
+				</tr>
+					<td>
+						poison control: (800) 222-1222
+					</td>
+				</tr>
+			 </table>
+		</div>
+		{% elif alert['level'] == 'high' %}
+
+		<div class="content">
+			<h4>The Issue: </h4>
+			<p>Your calorie intake has exeeded normal levels to an extended period of time.
+			This can be harmful to your health</p>
+			<h4>What to do</h4>
+			<p>Your calorie intake may be caused by increased stress.
+			If this issue continues without any reaction from you <strong> we may call emergency services on your behalf</strong></p>
+			<h4>Emergency Contacts: </h4>
+			<table>
+				<tr>
+					<td>
+						Emergency: 911
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Doctor: (816) 276-6405
+					</td>
+				</tr>
+					<td>
+						poison control: (800) 222-1222
+					</td>
+				</tr>
+			 </table>
+		</div>
+
+		{% endif %}
+
+	</div>
+
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+
+
+</div> </div>
+
+
+<script src="/static/js/health.js"></script>
+</body>
+</html>
