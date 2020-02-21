@@ -1,0 +1,36 @@
+#define arrays
+genders = [1, 2, 1, 2]
+ages = [23, 34, 45, 56]
+weights = [123, 144, 211,111]
+heights = [56, 65, 54, 67]
+bmi =[]
+bfp =[]
+calories = []
+#calculate BMI
+for i in range(0, len(weights)): 
+  bmi.append(703*(weights[i]/ (heights[i]*heights[i])))
+  if bmi[i] >= 30:
+    print (bmi[i])
+    print ("your BMI is in the obesity range")
+  elif bmi[i]<30 and bmi[i] >=25:
+    print (bmi[i])
+    print ("your BMI is in the above average range")
+  elif bmi[i]<25 and bmi[i] >=18:
+    print (bmi[i])
+    print ("your BMI is in the average range")
+  else:
+    print (bmi[i])
+    print ("your BMI is in the below average range")
+print (bmi)
+
+
+#calculate body fat precentage (BFP)
+for i in range(0, len(ages)): 
+  while (i in genders == 1):
+    bfp.append(.01*((1.20*bmi[i])+(0.23*ages[i])-5.4))
+  bfp.append(.01*((1.20*bmi[i])+(0.23*ages[i])-16.2))
+print (bfp)
+#calculate expended resting calories
+for i in range (0, len(weights)):
+  calories.append(370+(21.6*(1-bfp[i])*(weights[i])))
+print (calories)
