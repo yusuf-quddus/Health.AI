@@ -3,11 +3,9 @@
 <link rel="stylesheet" type="text/css" href="/static/css/landing.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <head>
-	<title>Sign up for HealthAI</title>
+	<title>Health AI: Login</title>
 </head>
 <body>
-
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
    <a class="navbar-brand" href="#">
     <img src="https://lh3.googleusercontent.com/proxy/XAQ7p9jOv7Nr0WPLxXzDAJ31YG6BLWzunxK29lJEPZjWjetRJNHbVxHVrPeDgQ5fvVPTuS25f1ZWtsacaVTjhLfDQimMYg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -24,45 +22,49 @@
       <li class="nav-item">
         <a class="nav-link" href="/about">About Us</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">Sign Up</a>
+      </li>
     </ul>
   </div>
 </nav>
-
-
 <div class="overlay body-img">
 		<div class="form">
-			<h2 class="text-copper"> Health Concious Living with A.I</h2>
-			{% with messages = get_flashed_messages() %}
+			<h2 class="text-copper">Welcome Back</h2>
+			<p style='color:red'>
+
+			{% with messages = get_flashed_messages(category_filter=["error"]) %}
 				 {% if messages %}
 						{% for message in messages %}
 							 {{ message }}
 						{% endfor %}
 				 {% endif %}
 			{% endwith %}
+
+		</p>
+
+		<p style='color:green'>
+
+		{% with messages = get_flashed_messages(category_filter=["success"]) %}
+			 {% if messages %}
+					{% for message in messages %}
+						 {{ message }}
+					{% endfor %}
+			 {% endif %}
+		{% endwith %}
+
+	</p>
 		    <form class="white" enctype="multipart/form-data" method="post">
 				<nav class="navbar navbar-light bg-light">
-					<div class="form-group">
-				    <label for="exampleInputEmail1">Full Name</label>
-				    <input name ='name' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your Full Name">
-				  </div>
-					<div class="form-group">
-				    <label for="exampleInputEmail1">BMI</label>
-				    <input name ='bmi' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your BMI">
-				  </div>
 				  <div class="form-group">
 				    <label for="exampleInputEmail1">Email address</label>
-				    <input type="email" name ='email' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+				    <input type="email" name='email' id='email' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
 				  </div>
 				  <div class="form-group">
 				    <label for="exampleInputPassword1">Password</label>
-				    <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name='password' id='password'>
 				  </div>
-				   <div class="form-group">
-				    <label for="exampleInputPassword1">Confirm Password</label>
-				    <input name='password2' type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
-				  </div>
-
-				  <button type="submit" class="btn btn-primary padding-up">Sign Up</button>
+				  <button type="submit" name='submit_button' class="btn btn-primary padding-up" value='login'>Log In</button>
 			</form>
 		</div>
 	</div>
