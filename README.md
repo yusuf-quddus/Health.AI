@@ -1,6 +1,10 @@
 # Health - AI Application
 Health - AI uses probabilistic models to understand the variation of health metrics and inform patients about their health. The application uses dynamic visualisations and probabilistic multinomial regression to model historical datasets and then identify anomalies. It also makes intelligent suggestions to the patients and notifies users of abnormalities based on historical data and predictive values.
 
+## Live Demo
+
+To see the app in action, go to [http://tinyurl.com/health-ai](http://tinyurl.com/health-ai)
+
 ## Deploying the application
 
 Step 1. Clone the repository using the command:
